@@ -1,0 +1,22 @@
+{
+  "name": "traveloop",
+  "version": "1.0.0",
+  "description": "Traveloop is a responsive travel planning prototype for creating multi-city itineraries, discovering cities and activities, estimating trip costs, managing packing items, writing trip notes, and sharing public itineraries.",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "dependencies": {
+    "bcrypt": "^6.0.0",
+    "cors": "^2.8.6",
+    "dotenv": "^17.4.2",
+    "express": "^5.2.1",
+    "jsonwebtoken": "^9.0.3",
+    "socket.io": "^4.8.3",
+    "sqlite3": "^6.0.1"
+  }
+}

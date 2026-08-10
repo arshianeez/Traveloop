@@ -1,0 +1,454 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Traveloop</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="app-shell">
+      <aside class="sidebar" aria-label="Primary navigation">
+        <a class="brand" href="#dashboard" aria-label="Traveloop dashboard">
+          <span class="brand-mark">T</span>
+          <span>
+            <strong>Traveloop</strong>
+            <small>Plan smarter</small>
+          </span>
+        </a>
+
+        <nav class="nav-list">
+          <a class="nav-link active" href="#dashboard" data-screen="dashboard">Home</a>
+          <a class="nav-link" href="#trips" data-screen="trips">My Trips</a>
+          <a class="nav-link" href="#builder" data-screen="builder">Itinerary</a>
+          <a class="nav-link" href="#discover" data-screen="discover">Discover</a>
+          <a class="nav-link" href="#budget" data-screen="budget">Budget</a>
+          <a class="nav-link" href="#packing" data-screen="packing">Packing</a>
+          <a class="nav-link" href="#journal" data-screen="journal">Notes</a>
+          <a class="nav-link" href="#share" data-screen="share">Share</a>
+          <a class="nav-link" href="#settings" data-screen="settings">Settings</a>
+          <a class="nav-link hidden" href="#admin" data-screen="admin" id="navAdmin">Admin</a>
+        </nav>
+
+        <section class="sidebar-panel">
+          <span class="eyebrow">Trip health</span>
+          <strong>$2,840 planned</strong>
+          <div class="meter" aria-label="Budget used">
+            <span style="width: 71%"></span>
+          </div>
+          <small>71% of your $4,000 target</small>
+        </section>
+      </aside>
+
+      <main>
+        <header class="topbar">
+          <button class="menu-button" id="menuButton" type="button" aria-label="Toggle navigation">Menu</button>
+          <div>
+            <span class="eyebrow">Personalized travel planning</span>
+            <h1 id="pageTitle">Good morning, Alex</h1>
+          </div>
+          <div class="profile-chip">
+            <img src="https://images.unsplash.com/photo-1524504388940-b1c1722653e1?auto=format&fit=crop&w=128&q=80" alt="" id="headerProfilePic" />
+            <span>Alex</span>
+          </div>
+        </header>
+
+        <section class="screen active" id="dashboard" data-title="Good morning, Alex">
+          <div class="hero-band">
+            <div class="hero-copy">
+              <span class="eyebrow">Next itinerary</span>
+              <h2>Tokyo, Seoul, and Singapore in one calm travel loop.</h2>
+              <p>Balance dates, stops, experiences, and budget before anything gets booked.</p>
+              <div class="hero-actions">
+                <button class="primary-action" type="button" data-go="create">Plan New Trip</button>
+                <button class="secondary-action" type="button" data-go="builder">Continue Itinerary</button>
+              </div>
+            </div>
+          </div>
+
+          <div class="stats-grid">
+            <article class="stat-tile">
+              <span>Upcoming trips</span>
+              <strong id="dashUpcomingTrips">0</strong>
+            </article>
+            <article class="stat-tile">
+              <span>Saved cities</span>
+              <strong>18</strong>
+            </article>
+            <article class="stat-tile">
+              <span>Avg. cost/day</span>
+              <strong>$189</strong>
+            </article>
+            <article class="stat-tile">
+              <span>Public saves</span>
+              <strong>42</strong>
+            </article>
+          </div>
+
+          <div class="content-grid two-col">
+            <section class="panel">
+              <div class="section-heading">
+                <h2>Recent Trips</h2>
+                <button class="text-action" type="button" data-go="trips">View all</button>
+              </div>
+              <div class="trip-list" id="recentTrips"></div>
+            </section>
+
+            <section class="panel">
+              <div class="section-heading">
+                <h2>Recommended Cities</h2>
+                <button class="text-action" type="button" data-go="discover">Explore</button>
+              </div>
+              <div class="city-strip" id="recommendedCities"></div>
+            </section>
+          </div>
+        </section>
+
+        <section class="screen" id="create" data-title="Create a new trip">
+          <div class="form-layout">
+            <section class="panel">
+              <div class="section-heading">
+                <h2>Trip Details</h2>
+              </div>
+              <form class="trip-form" id="tripForm">
+                <label>
+                  Trip name
+                  <input name="name" type="text" value="Autumn Asia Loop" required />
+                </label>
+                <div class="field-row">
+                  <label>
+                    Start date
+                    <input name="start" type="date" value="2026-10-04" required />
+                  </label>
+                  <label>
+                    End date
+                    <input name="end" type="date" value="2026-10-18" required />
+                  </label>
+                </div>
+                <label>
+                  Description
+                  <textarea name="description" rows="5">A food, design, and culture trip with flexible pacing.</textarea>
+                </label>
+                <label>
+                  Cover photo URL
+                  <input name="cover" type="url" value="https://images.unsplash.com/photo-1503899036084-c55cdd92da26?auto=format&fit=crop&w=1200&q=80" />
+                </label>
+                <button class="primary-action" type="submit">Save Trip</button>
+              </form>
+            </section>
+            <aside class="panel preview-panel">
+              <span class="eyebrow">Live preview</span>
+              <img id="tripPreviewImage" src="https://images.unsplash.com/photo-1503899036084-c55cdd92da26?auto=format&fit=crop&w=1200&q=80" alt="" />
+              <h2 id="tripPreviewTitle">Autumn Asia Loop</h2>
+              <p id="tripPreviewText">A food, design, and culture trip with flexible pacing.</p>
+            </aside>
+          </div>
+        </section>
+
+        <section class="screen" id="trips" data-title="My trips">
+          <div class="section-heading page-heading">
+            <h2>All Trips</h2>
+            <button class="primary-action" type="button" data-go="create">New Trip</button>
+          </div>
+          <div class="trip-card-grid" id="tripCards"></div>
+        </section>
+
+        <section class="screen" id="builder" data-title="Itinerary builder">
+          <div class="builder-layout">
+            <section class="panel">
+              <div class="section-heading">
+                <h2>Stops</h2>
+                <button class="secondary-action" id="addStopButton" type="button">Add Stop</button>
+              </div>
+              <div class="stop-list" id="stopList"></div>
+            </section>
+
+            <section class="panel itinerary-panel">
+              <div class="section-heading">
+                <h2>Day Plan</h2>
+              </div>
+              <div class="timeline" id="timeline"></div>
+            </section>
+          </div>
+        </section>
+
+        <section class="screen" id="discover" data-title="Discover cities and activities">
+          <div class="search-panel">
+            <input id="searchInput" type="search" placeholder="Search cities, countries, or activities" />
+            <select id="regionFilter" aria-label="Filter by region">
+              <option value="all">All regions</option>
+              <option value="Africa">Africa</option>
+              <option value="Asia">Asia</option>
+              <option value="Europe">Europe</option>
+              <option value="North America">North America</option>
+              <option value="Oceania">Oceania</option>
+              <option value="South America">South America</option>
+            </select>
+          </div>
+          <div class="content-grid two-col">
+            <section class="panel">
+              <div class="section-heading">
+                <h2>Cities</h2>
+              </div>
+              <div class="city-results" id="cityResults"></div>
+            </section>
+            <section class="panel">
+              <div class="section-heading">
+                <h2>Activities</h2>
+              </div>
+              <div class="activity-results" id="activityResults"></div>
+            </section>
+          </div>
+        </section>
+
+        <section class="screen" id="budget" data-title="Budget and cost breakdown">
+          <div class="budget-layout">
+            <section class="panel">
+              <span class="eyebrow">Estimated total</span>
+              <div class="budget-total">$2,840</div>
+              <p class="muted">Across 15 days, 4 cities, and 11 planned activities.</p>
+              <div id="budgetPieChart"></div>
+              <div class="chart-bars" id="budgetBars"></div>
+            </section>
+            <section class="panel">
+              <div class="section-heading">
+                <h2>Daily Alerts</h2>
+              </div>
+              <div class="alert-list">
+                <article class="alert warning">
+                  <strong>Oct 9 exceeds target</strong>
+                  <span>Seoul food tour and hotel overlap push the day $86 over budget.</span>
+                </article>
+                <article class="alert">
+                  <strong>Oct 14 has room</strong>
+                  <span>Singapore free morning keeps the day under budget by $55.</span>
+                </article>
+              </div>
+            </section>
+          </div>
+        </section>
+
+        <section class="screen" id="packing" data-title="Packing checklist">
+          <div class="panel">
+            <div class="section-heading">
+              <h2>Packing Checklist</h2>
+              <button class="secondary-action" id="resetPacking" type="button">Reset</button>
+            </div>
+            <form class="inline-form" id="packingForm">
+              <input name="item" type="text" placeholder="Add item" required />
+              <select name="category" aria-label="Packing category">
+                <option>Documents</option>
+                <option>Clothing</option>
+                <option>Electronics</option>
+                <option>Health</option>
+              </select>
+              <button class="primary-action" type="submit">Add</button>
+            </form>
+            <div class="checklist" id="packingList"></div>
+          </div>
+        </section>
+
+        <section class="screen" id="journal" data-title="Trip notes and journal">
+          <div class="content-grid two-col">
+            <section class="panel">
+              <div class="section-heading">
+                <h2>New Note</h2>
+              </div>
+              <form class="trip-form" id="noteForm">
+                <label>
+                  Attach to
+                  <select name="scope">
+                    <option>Whole trip</option>
+                    <option>Tokyo</option>
+                    <option>Seoul</option>
+                    <option>Singapore</option>
+                  </select>
+                </label>
+                <label>
+                  Note
+                  <textarea name="note" rows="6" placeholder="Hotel check-in, reminders, local contacts" required></textarea>
+                </label>
+                <button class="primary-action" type="submit">Save Note</button>
+              </form>
+            </section>
+            <section class="panel">
+              <div class="section-heading">
+                <h2>Saved Notes</h2>
+              </div>
+              <div class="notes-list" id="notesList"></div>
+            </section>
+          </div>
+        </section>
+
+        <section class="screen" id="share" data-title="Shared itinerary">
+          <div class="share-cover">
+            <div>
+              <span class="eyebrow">Public itinerary</span>
+              <h2>Autumn Asia Loop</h2>
+              <p>15 days through Tokyo, Kyoto, Seoul, and Singapore.</p>
+            </div>
+            <button class="primary-action" type="button" id="btnCopySharedTrip">Copy Trip</button>
+          </div>
+          <section class="panel">
+            <div class="section-heading">
+              <h2>Share Link</h2>
+              <button class="secondary-action" id="copyLink" type="button">Copy URL</button>
+            </div>
+            <input class="share-url" readonly value="https://traveloop.app/public/autumn-asia-loop" />
+            <div class="timeline compact" id="publicTimeline"></div>
+          </section>
+        </section>
+
+        <section class="screen" id="settings" data-title="Profile and settings">
+          <div class="form-layout">
+            <section class="panel">
+              <div class="section-heading">
+                <h2>Profile</h2>
+              </div>
+              <form class="trip-form" id="profileForm">
+                <label>
+                  Profile Photo
+                  <input type="file" accept="image/*" />
+                </label>
+                <label>
+                  Name
+                  <input type="text" value="Alex Traveler" />
+                </label>
+                <label>
+                  Email
+                  <input type="email" value="alex@demo.com" />
+                </label>
+                <label>
+                  Language
+                  <select>
+                    <option>English</option>
+                    <option>French</option>
+                    <option>German</option>
+                    <option>Hindi</option>
+                    <option>Japanese</option>
+                    <option>Spanish</option>
+                  </select>
+                </label>
+                <label class="toggle-row">
+                  <input type="checkbox" checked />
+                  Allow friends to copy public trips
+                </label>
+                <button class="primary-action" type="submit">Save Settings</button>
+                <div style="display:flex; gap:12px; margin-top:1rem;">
+                  <button class="secondary-action" type="button" id="logoutButton" style="color: #c7503d;">Logout</button>
+                  <button class="secondary-action" type="button" id="deleteAccountButton" style="color: #c7503d; border: 1px solid #c7503d;">Delete Account</button>
+                </div>
+              </form>
+            </section>
+            <section class="panel">
+              <div class="section-heading">
+                <h2>Saved Destinations</h2>
+              </div>
+              <div class="tag-cloud">
+                <span>Lisbon</span>
+                <span>Tokyo</span>
+                <span>Seoul</span>
+                <span>Reykjavik</span>
+                <span>Singapore</span>
+                <span>Vancouver</span>
+              </div>
+            </section>
+          </div>
+        </section>
+        <section class="screen" id="admin" data-title="Admin Dashboard">
+          <div class="stats-grid" id="adminTopStats"></div>
+          <div class="content-grid two-col">
+            <section class="panel">
+              <div class="section-heading"><h2>Engagement Overview</h2></div>
+              <div class="chart-bars" id="adminEngagementChart"></div>
+            </section>
+            <section class="panel">
+              <div class="section-heading"><h2>Top Cities</h2></div>
+              <div class="chart-bars" id="adminCitiesChart"></div>
+            </section>
+          </div>
+          <section class="panel" style="margin-top: 18px;">
+            <div class="section-heading"><h2>User Management</h2></div>
+            <div id="adminUserTable">Mock table space</div>
+          </section>
+        </section>
+      </main>
+    </div>
+
+    <section class="auth-modal hidden" id="quickViewModal" aria-label="Activity Quick View">
+      <div class="auth-card" style="width: min(600px, 100%)">
+        <h2 id="qvTitle">Activity Title</h2>
+        <img id="qvImage" src="" style="width:100%; height:200px; object-fit:cover; margin:14px 0; border-radius:8px;" />
+        <p id="qvDesc"></p>
+        <div style="display:flex; gap:10px; margin-top: 14px;">
+          <button class="primary-action" id="qvAddBtn">Add to Trip</button>
+          <button class="secondary-action" onclick="document.getElementById('quickViewModal').classList.add('hidden')">Close</button>
+        </div>
+      </div>
+    </section>
+
+    <section class="auth-modal" id="authModal" aria-label="Login or signup">
+      <div class="auth-card">
+        <span class="brand-mark">T</span>
+        
+        <!-- Login Form -->
+        <form id="loginForm">
+          <h2>Welcome to Traveloop</h2>
+          <p>Sign in to manage personal itineraries, budgets, and shared travel plans.</p>
+          <label>
+            Email
+            <input name="email" type="email" placeholder="alex@demo.com" required />
+          </label>
+          <label>
+            Password
+            <input name="password" type="password" placeholder="password" required minlength="6" />
+          </label>
+          <button class="primary-action" type="submit">Login</button>
+          <div class="auth-links">
+            <button type="button" class="text-action" id="showForgot">Forgot Password</button>
+            <button type="button" class="text-action" id="showSignup">Create Account</button>
+          </div>
+        </form>
+
+        <!-- Signup Form -->
+        <form id="signupForm" class="hidden">
+          <h2>Create Account</h2>
+          <p>Join Traveloop to start planning your next journey.</p>
+          <label>
+            Full Name
+            <input name="name" type="text" placeholder="Alex Traveler" required />
+          </label>
+          <label>
+            Email
+            <input name="email" type="email" placeholder="alex@demo.com" required />
+          </label>
+          <label>
+            Password
+            <input name="password" type="password" required minlength="6" />
+          </label>
+          <button class="primary-action" type="submit">Sign Up</button>
+          <div class="auth-links" style="justify-content: center;">
+            <button type="button" class="text-action" id="showLoginFromSignup">Back to Login</button>
+          </div>
+        </form>
+
+        <!-- Forgot Password Form -->
+        <form id="forgotForm" class="hidden">
+          <h2>Reset Password</h2>
+          <p>Enter your email and we'll send you a reset link.</p>
+          <label>
+            Email
+            <input name="email" type="email" placeholder="alex@demo.com" required />
+          </label>
+          <button class="primary-action" type="submit">Send Reset Link</button>
+          <div class="auth-links" style="justify-content: center;">
+            <button type="button" class="text-action" id="showLoginFromForgot">Back to Login</button>
+          </div>
+        </form>
+      </div>
+    </section>
+
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="app.js"></script>
+  </body>
+</html>
